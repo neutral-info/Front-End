@@ -64,6 +64,12 @@ export default {
     ** You can extend webpack config here
     */
     extend (config, ctx) {
-    }
-  }
+    },
+    cache: true,
+    hardSource: true,
+    parallel: true
+  },
+  components: true,
+  modern: true,
+  telemetry: true
 }
