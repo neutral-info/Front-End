@@ -1,3 +1,4 @@
+const { npm_package_name: title, npm_package_description: description, npm_package_version: version } = process.env
 
 export default {
   mode: 'universal',
@@ -5,11 +6,11 @@ export default {
   ** Headers of the page
   */
   head: {
-    title: process.env.npm_package_name || '',
+    title,
     meta: [
       { charset: 'utf-8' },
       { name: 'viewport', content: 'width=device-width, initial-scale=1' },
-      { hid: 'description', name: 'description', content: process.env.npm_package_description || '' }
+      { hid: 'description', name: 'description', content: description || '' }
     ],
     link: [
       { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' }
@@ -18,7 +19,7 @@ export default {
   /*
   ** Customize the progress-bar color
   */
-  loading: { color: '#fff' },
+  loading: false,
   /*
   ** Global CSS
   */
@@ -68,6 +69,14 @@ export default {
     cache: true,
     hardSource: true,
     parallel: true,
+    filenames: {
+      app: ({ isDev, isModern }) => (isDev ? (isModern ? `modern-[name].v${version}.js` : `[name].v${version}.js`) : (isModern ? `modern-[chunkhash].v${version}.js` : `[chunkhash].v${version}.js`)),
+      chunk: ({ isDev, isModern }) => (isDev ? (isModern ? `modern-[name].v${version}.js` : `[name].v${version}.js`) : (isModern ? `modern-[id].[chunkhash].v${version}.js` : `[id].[chunkhash].v${version}.js`)),
+      css: ({ isDev }) => (isDev ? `[name].v${version}.js` : `[contenthash].v${version}.css`),
+      img: ({ isDev }) => (isDev ? `[path][name].v${version}.[ext]` : `img/[hash:7].v${version}.[ext]`),
+      font: ({ isDev }) => (isDev ? `[path][name].v${version}.[ext]` : `fonts/[hash:7].v${version}.[ext]`),
+      video: ({ isDev }) => (isDev ? `[path][name].v${version}.[ext]` : `videos/[hash:7].v${version}.[ext]`)
+    },
     /*
     ** You can extend webpack config here
     */
