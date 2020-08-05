@@ -48,7 +48,8 @@ export default {
     '@nuxtjs/axios',
     '@nuxtjs/pwa',
     // Doc: https://github.com/nuxt-community/dotenv-module
-    '@nuxtjs/dotenv'
+    '@nuxtjs/dotenv',
+    '@nuxtjs/sentry'
   ],
   /*
   ** Axios module configuration
@@ -56,18 +57,22 @@ export default {
   */
   axios: {
   },
+  sentry: {
+    dsn: '', // Enter your project's DSN here
+    config: {} // Additional config
+  },
   /*
   ** Build configuration
   */
   build: {
+    cache: true,
+    hardSource: true,
+    parallel: true,
     /*
     ** You can extend webpack config here
     */
     extend (config, ctx) {
-    },
-    cache: true,
-    hardSource: true,
-    parallel: true
+    }
   },
   components: true,
   modern: true,
