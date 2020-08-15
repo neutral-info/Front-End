@@ -1,68 +1,81 @@
 <template>
   <div class="container">
-    <div>
-      <logo />
-      <h1 class="title">
-        neutral-info
-      </h1>
-      <h2 class="subtitle">
-        neutral-info
-      </h2>
-      <div class="links">
-        <a
-          href="https://nuxtjs.org/"
-          target="_blank"
-          class="button--green"
-        >
-          Documentation
-        </a>
-        <a
-          href="https://github.com/nuxt/nuxt.js"
-          target="_blank"
-          class="button--grey"
-        >
-          GitHub
-        </a>
-      </div>
-    </div>
+    <!-- <b-table :items="news">
+      dasd
+    </b-table> -->
+    <json-viewer
+      :value="news"
+      :expand-depth="2"
+      copyable
+      boxed
+      sort
+    />
+    <json-viewer
+      :value="positionOption"
+      :expand-depth="2"
+      copyable
+      boxed
+      sort
+    />
+    <json-viewer
+      :value="channelOption"
+      :expand-depth="2"
+      copyable
+      boxed
+      sort
+    />
   </div>
 </template>
 
 <script>
+import { mapActions } from 'vuex'
 
 export default {
+  data () {
+    return {
+      page: 1,
+      limit: 10,
+      total: 0,
+      news: null,
+      positionOption: null,
+      channelOption: null
+    }
+  },
+  mounted () {
+    this.getChannelItems()
+    this.getPostionItems()
+    this.getNewsList()
+  },
+  methods: {
+    ...mapActions('api/keyword', ['getNews']),
+    ...mapActions('api/item', ['getItemsByType']),
+    getChannelItems () {
+      return this.getItemsByType({
+        itemtype: 'Channel'
+      }).then((data) => {
+        this.channelOption = !data.error ? data : []
+      })
+    },
+    getPostionItems () {
+      return this.getItemsByType({
+        itemtype: 'Position'
+      }).then((data) => {
+        this.positionOption = !data.error ? data : []
+      })
+    },
+    getNewsList () {
+      return this.getNews({
+        pageNo: this.page,
+        pageSize: this.limit
+      }).then((data) => {
+        this.news = !data.error ? data.News : []
+        this.total = !data.error ? data.totalNews : 0
+      })
+    }
+  }
 }
 </script>
 
-<style>
-.container {
-  margin: 0 auto;
-  min-height: 100vh;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  text-align: center;
-}
+<style lang="scss" scoped>
 
-.title {
-  font-family: 'Quicksand', 'Source Sans Pro', -apple-system, BlinkMacSystemFont,
-    'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
-  display: block;
-  font-weight: 300;
-  font-size: 100px;
-  color: #35495e;
-  letter-spacing: 1px;
-}
-
-.subtitle {
-  font-weight: 300;
-  font-size: 42px;
-  color: #526488;
-  word-spacing: 5px;
-  padding-bottom: 15px;
-}
-
-.links {
-  padding-top: 15px;
-}
 </style>

@@ -29,6 +29,16 @@ export default {
   ** Plugins to load before mounting the App
   */
   plugins: [
+    {
+      src: '~/plugins/helper'
+    },
+    {
+      src: '~/plugins/vue-lodash'
+    },
+    {
+      src: '~/plugins/vue-json-viewer',
+      mode: 'client'
+    }
   ],
   /*
   ** Nuxt.js dev-modules

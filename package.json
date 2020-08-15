@@ -1,7 +1,7 @@
 {
   "name": "neutral-info",
   "version": "1.0.0",
-  "description": "neutral-info",
+  "description": "不同網站可能會基於演算法，來改變使用者會看見的資訊 neutral-info 希望建立一個中立的資訊平台，使用者可以利用關鍵字，找到你想知道的訊息， 這些訊息來自多元管道，並可以依照訊息特徵（聲量、情緒、來源），做出篩選",
   "author": "neutral-info",
   "private": true,
   "scripts": {
@@ -18,7 +18,9 @@
     "@nuxtjs/sentry": "^4.3.4",
     "bootstrap": "^4.5.1",
     "bootstrap-vue": "^2.16.0",
-    "nuxt": "^2.14.1"
+    "nuxt": "^2.14.1",
+    "vue-json-viewer": "^2.2.14",
+    "vue-lodash": "^2.1.2"
   },
   "devDependencies": {
     "@nuxtjs/eslint-config": "^3.1.0",
