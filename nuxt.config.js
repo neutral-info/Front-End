@@ -104,6 +104,10 @@ export default {
       })
     }
   },
+  env: {
+    API_URL: process.env.API_URL,
+    API_VERSION: process.env.API_VERSION
+  },
   components: true,
   modern: true,
   telemetry: true
