@@ -66,7 +66,7 @@ export const actions = {
 
     const queryString = this.$helper.api.getQueryStringByOptions(queryOption)
 
-    return this.$axios.get(`${process.env.API_URL}api/${process.env.API_VERSION}/keyword${queryString}`)
+    return this.$axios.get(`${process.env.API_URL}/api/${process.env.API_VERSION}/keyword${queryString}`)
       .then(this.$helper.api.handleSuccess)
       .catch(this.$helper.api.handleError)
   }

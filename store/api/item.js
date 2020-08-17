@@ -12,7 +12,7 @@ export const actions = {
 
     const queryString = this.$helper.api.getQueryStringByOptions(queryOption)
 
-    return this.$axios.get(`${process.env.API_URL}api/${process.env.API_VERSION}/item${queryString}`)
+    return this.$axios.get(`${process.env.API_URL}/api/${process.env.API_VERSION}/item${queryString}`)
       .then(this.$helper.api.handleSuccess)
       .catch(this.$helper.api.handleError)
   }
