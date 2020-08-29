@@ -13,16 +13,21 @@
     "lint": "eslint --ext .js,.vue --ignore-path .gitignore ."
   },
   "dependencies": {
+    "@fortawesome/free-solid-svg-icons": "^5.14.0",
     "@nuxtjs/axios": "^5.12.1",
     "@nuxtjs/dotenv": "^1.4.1",
+    "@nuxtjs/fontawesome": "^1.1.2",
+    "@nuxtjs/moment": "^1.6.1",
     "@nuxtjs/pwa": "^3.0.0-beta.20",
     "@nuxtjs/sentry": "^4.3.4",
+    "@nuxtjs/style-resources": "^1.0.0",
+    "@nuxtjs/svg": "^0.1.12",
     "bootstrap": "^4.5.1",
     "bootstrap-vue": "^2.16.0",
     "nuxt": "^2.14.1",
+    "vue-clamp": "^0.3.1",
     "vue-json-viewer": "^2.2.14",
-    "vue-lodash": "^2.1.2",
-    "vue-svg-loader": "^0.16.0"
+    "vue-lodash": "^2.1.2"
   },
   "devDependencies": {
     "@nuxtjs/eslint-config": "^3.1.0",
@@ -34,7 +39,10 @@
     "sass": "^1.26.10",
     "sass-loader": "^9.0.3",
     "stylelint": "^13.6.1",
-    "stylelint-config-recommended": "^3.0.0"
+    "stylelint-config-recommended": "^3.0.0",
+    "stylelint-config-recommended-scss": "^4.2.0",
+    "stylelint-scss": "^3.18.0",
+    "stylelint-selector-bem-pattern": "^2.1.0"
   },
   "engines": {
     "node": ">=14.5.0",

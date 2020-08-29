@@ -1,5 +1,8 @@
 module.exports = {
-  extends: 'stylelint-config-recommended',
+  extends: 'stylelint-config-recommended-scss',
+  plugins: [
+    'stylelint-selector-bem-pattern'
+  ],
   // add your custom config here
   // https://stylelint.io/user-guide/configuration
   rules: {
@@ -8,6 +11,7 @@ module.exports = {
       {
         ignorePseudoElements: ['v-deep']
       }
-    ]
+    ],
+    'no-descending-specificity': null
   }
 }

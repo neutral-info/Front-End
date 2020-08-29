@@ -1,3 +1,4 @@
+import webpack from 'webpack'
 const { npm_package_name: title, npm_package_description: description, npm_package_version: version } = process.env
 
 export default {
@@ -38,6 +39,10 @@ export default {
     {
       src: '~/plugins/vue-json-viewer',
       mode: 'client'
+    },
+    {
+      src: '~/plugins/vue-clamp',
+      mode: 'client'
     }
   ],
   /*
@@ -47,7 +52,10 @@ export default {
     // Doc: https://github.com/nuxt-community/eslint-module
     '@nuxtjs/eslint-module',
     // Doc: https://github.com/nuxt-community/stylelint-module
-    '@nuxtjs/stylelint-module'
+    '@nuxtjs/stylelint-module',
+    '@nuxtjs/moment',
+    '@nuxtjs/fontawesome',
+    '@nuxtjs/svg'
   ],
   /*
   ** Nuxt.js modules
@@ -60,7 +68,8 @@ export default {
     '@nuxtjs/pwa',
     // Doc: https://github.com/nuxt-community/dotenv-module
     '@nuxtjs/dotenv',
-    '@nuxtjs/sentry'
+    '@nuxtjs/sentry',
+    '@nuxtjs/style-resources'
   ],
   /*
   ** Axios module configuration
@@ -69,8 +78,31 @@ export default {
   axios: {
   },
   sentry: {
-    dsn: '', // Enter your project's DSN here
-    config: {} // Additional config
+    dsn: 'https://3589ac1a901244449ceb1d323fcba7c7@o427785.ingest.sentry.io/5401003'
+  },
+  moment: {
+    defaultLocale: 'zh-tw',
+    defaultTimezone: 'Asia/Taipei',
+    locales: ['zh-tw']
+  },
+  fontawesome: {
+    icons: {
+      solid: true
+    }
+  },
+  stylelint: {
+    fix: true
+  },
+  eslint: {
+    fix: true
+  },
+  styleResources: {
+    scss: [
+      'bootstrap/scss/_functions.scss',
+      'bootstrap/scss/_variables.scss',
+      'bootstrap/scss/_mixins.scss',
+      'bootstrap-vue/src/_variables.scss'
+    ]
   },
   /*
   ** Build configuration
@@ -87,21 +119,16 @@ export default {
       font: ({ isDev }) => (isDev ? `[path][name].v${version}.[ext]` : `fonts/[hash:7].v${version}.[ext]`),
       video: ({ isDev }) => (isDev ? `[path][name].v${version}.[ext]` : `videos/[hash:7].v${version}.[ext]`)
     },
+    plugins: [
+      new webpack.ProvidePlugin({
+        _: 'lodash'
+      })
+    ],
+    transpile: ['vue-clamp', 'resize-detector'],
     /*
     ** You can extend webpack config here
     */
     extend (config, ctx) {
-      const svgRule = config.module.rules.find(rule => rule.test.test('.svg'))
-
-      svgRule.test = /\.(png|jpe?g|gif|webp)$/
-
-      config.module.rules.push({
-        test: /\.svg$/,
-        use: [
-          'babel-loader',
-          'vue-svg-loader'
-        ]
-      })
     }
   },
   env: {
