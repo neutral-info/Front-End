@@ -75,61 +75,62 @@
         </div>
       </div>
     </div>
-    <b-table
-      responsive
-      show-empty
-      no-sort-reset
-      no-local-sorting
-      :fields="fields"
-      :items="results"
-      :busy="!results"
-      sort-direction="desc"
-      :sort-desc.sync="orderDesc"
-      :sort-by.sync="orderby"
-      table-class="searchResultTable"
-      @sort-changed="getResults"
-    >
-      <template #table-busy>
-        <div class="text-center text-dark my-5">
-          <b-spinner />
-        </div>
-      </template>
-      <template #empty>
-        <div class="h4 text-center my-5">
-          目前沒有找到相關的資料
-        </div>
-      </template>
-      <template #cell(keywords)="{ item }">
-        <span v-for="keyword in item.keywords" :key="keyword" class="searchResultTable__keyword">
-          {{ keyword }}
-        </span>
-        <span class="searchResultTable__title" @click.prevent="collapseText[item.id] = !collapseText[item.id]">
-          <v-clamp autoresize :max-lines="1">
-            {{ item.title }}
-          </v-clamp>
-          <font-awesome-icon
-            class="ml-2"
-            :icon="['fas'].concat(collapseText[item.id] ? ['angle-up'] : ['angle-down'])"
-          />
-        </span>
-        <v-clamp v-if="collapseText[item.id]" class="searchResultTable__text" autoresize :max-lines="3">
-          {{ item.text }}
-        </v-clamp>
-      </template>
-      <template #cell(position)="{ item }">
-        <div class="d-flex align-items-baseline justify-content-center text-nowrap">
-          <div class="d-flex flex-column">
-            <span v-for="position in item.position" :key="position.party + position.trend">
-              {{ position.party }}
-            </span>
+    <perfect-scrollbar>
+      <b-table
+        show-empty
+        no-sort-reset
+        no-local-sorting
+        :fields="fields"
+        :items="results"
+        :busy="!results"
+        sort-direction="desc"
+        :sort-desc.sync="orderDesc"
+        :sort-by.sync="orderby"
+        table-class="searchResultTable"
+        @sort-changed="getResults"
+      >
+        <template #table-busy>
+          <div class="text-center text-dark my-5">
+            <b-spinner />
           </div>
-          <PositionIcon />
-        </div>
-      </template>
-      <template #cell(pubdate)="{ item }">
-        {{ $moment(item.pubdate).format('YYYY/MM/DD') }}
-      </template>
-    </b-table>
+        </template>
+        <template #empty>
+          <div class="h4 text-center my-5">
+            目前沒有找到相關的資料
+          </div>
+        </template>
+        <template #cell(keywords)="{ item }">
+          <span v-for="keyword in item.keywords" :key="keyword" class="searchResultTable__keyword">
+            {{ keyword }}
+          </span>
+          <span class="searchResultTable__title" @click.prevent="collapseText[item.id] = !collapseText[item.id]">
+            <v-clamp autoresize :max-lines="1">
+              {{ item.title }}
+            </v-clamp>
+            <font-awesome-icon
+              class="ml-2"
+              :icon="['fas'].concat(collapseText[item.id] ? ['angle-up'] : ['angle-down'])"
+            />
+          </span>
+          <v-clamp v-if="collapseText[item.id]" class="searchResultTable__text" autoresize :max-lines="3">
+            {{ item.text }}
+          </v-clamp>
+        </template>
+        <template #cell(position)="{ item }">
+          <div class="d-flex align-items-baseline justify-content-center text-nowrap">
+            <div class="d-flex flex-column">
+              <span v-for="position in item.position" :key="position.party + position.trend">
+                {{ position.party }}
+              </span>
+            </div>
+            <PositionIcon />
+          </div>
+        </template>
+        <template #cell(pubdate)="{ item }">
+          {{ $moment(item.pubdate).format('YYYY/MM/DD') }}
+        </template>
+      </b-table>
+    </perfect-scrollbar>
     <b-pagination
       v-model="page"
       class="my-5"
@@ -370,53 +371,54 @@ export default {
     }
   }
 
-  .table-responsive {
+  .searchResultTable {
+    background-color: rgba(47, 128, 237, 0.15);
+    $searchResultTable: &;
+
     ::v-deep {
-      .searchResultTable {
-        background-color: rgba(47, 128, 237, 0.15);
+      #{$searchResultTable}__keywords {
+        background-color: white;
+        min-width: 260px;
+        position: sticky;
+        left: 0;
 
-        &__border {
-          border: 1px solid #BCD5F5;
-        }
-
-        &__keywords {
-          background-color: white;
-          min-width: 260px;
-
-          @include media-breakpoint-up(md) {
-            width: 50%;
-            min-width: auto;
-          }
-        }
-
-        &__keyword {
-          color: #070915;
-          background: #2F80ED;
-          border-radius: 5px;
-          padding: 0 3px;
-          margin: 0 5px 5px 0;
-          display: inline-block;
-        }
-
-        &__title {
-          width: 100%;
-          padding: 0;
-          border: none;
-          background-color: transparent;
-          color: #2F80ED;
-          text-decoration: underline;
-          cursor: pointer;
-          display: flex;
-          align-items: center;
-          justify-content: space-between;
-        }
-
-        &__text {
-          color: black;
-          margin-top: 6px;
-          font-size: 14px;
+        @include media-breakpoint-up(md) {
+          width: 50%;
+          min-width: auto;
         }
       }
+
+      #{$searchResultTable}__border {
+        border: 1px solid #BCD5F5;
+      }
+    }
+
+    &__keyword {
+      color: #070915;
+      background: #2F80ED;
+      border-radius: 5px;
+      padding: 0 3px;
+      margin: 0 5px 5px 0;
+      display: inline-block;
+    }
+
+    &__title {
+      width: 100%;
+      padding: 0;
+      border: none;
+      background-color: transparent;
+      color: #2F80ED;
+      text-decoration: underline;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    &__text {
+      color: black;
+      margin-top: 6px;
+      font-size: 14px;
     }
   }
 

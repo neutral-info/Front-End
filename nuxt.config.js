@@ -43,6 +43,9 @@ export default {
     {
       src: '~/plugins/vue-clamp',
       mode: 'client'
+    },
+    {
+      src: '~/plugins/vue-perfect-scrollbar'
     }
   ],
   /*

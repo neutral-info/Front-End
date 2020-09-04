@@ -12,6 +12,9 @@ module.exports = {
         ignorePseudoElements: ['v-deep']
       }
     ],
-    'no-descending-specificity': null
+    'no-descending-specificity': null,
+    indentation: [
+      2
+    ]
   }
 }
