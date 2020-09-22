@@ -20,7 +20,7 @@
           @input="getResults({ searchType: 'news'})"
         >
           <template #add-button-text>
-            <SearchIcon />
+            <svg-icon name="IconSearch" :width="16" :height="16" />
           </template>
         </b-form-tags>
         <b-popover
@@ -68,11 +68,9 @@
           </b-form>
         </b-popover>
         <div class="searchForm__news-filter">
-          <FilterIcon ref="filterBtn" />
+          <svg-icon ref="filterBtn" name="IconFilter" :width="16" :height="16" />
         </div>
-        <div>
-          <HotIcon />
-        </div>
+        <svg-icon name="IconHot" :width="14" :height="18" />
       </div>
     </div>
     <perfect-scrollbar>
@@ -123,7 +121,7 @@
                 {{ position.party }}
               </span>
             </div>
-            <PositionIcon />
+            <svg-icon name="IconPosition" :width="16" :height="13" />
           </div>
         </template>
         <template #cell(pubdate)="{ item }">
@@ -145,18 +143,8 @@
 
 <script>
 import { mapActions } from 'vuex'
-import FilterIcon from '~/assets/svg/filter.svg?inline'
-import HotIcon from '~/assets/svg/hot.svg?inline'
-import SearchIcon from '~/assets/svg/search.svg?inline'
-import PositionIcon from '~/assets/svg/position.svg?inline'
 
 export default {
-  components: {
-    FilterIcon,
-    HotIcon,
-    SearchIcon,
-    PositionIcon
-  },
   data () {
     return {
       total: 0,
