@@ -125,7 +125,7 @@
           </div>
         </template>
         <template #cell(pubdate)="{ item }">
-          {{ $moment(item.pubdate).format('YYYY/MM/DD') }}
+          {{ $dayjs(item.pubdate).format('YYYY/MM/DD') }}
         </template>
       </b-table>
     </perfect-scrollbar>

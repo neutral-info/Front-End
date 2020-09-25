@@ -56,7 +56,7 @@ export default {
     '@nuxtjs/eslint-module',
     // Doc: https://github.com/nuxt-community/stylelint-module
     '@nuxtjs/stylelint-module',
-    '@nuxtjs/moment',
+    '@nuxtjs/dayjs',
     '@nuxtjs/fontawesome',
     '@nuxtjs/svg'
   ],
@@ -83,9 +83,8 @@ export default {
   sentry: {
     dsn: 'https://3589ac1a901244449ceb1d323fcba7c7@o427785.ingest.sentry.io/5401003'
   },
-  moment: {
+  dayjs: {
     defaultLocale: 'zh-tw',
-    defaultTimezone: 'Asia/Taipei',
     locales: ['zh-tw']
   },
   fontawesome: {
