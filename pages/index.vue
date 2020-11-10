@@ -26,7 +26,7 @@
         <b-popover
           v-if="$refs.filterBtn && results"
           :target="$refs.filterBtn"
-          triggers="hover"
+          triggers="hover click"
           placement="leftbottom"
           custom-class="newsFilter"
         >
@@ -38,21 +38,21 @@
               <span class="newsFilter__volume-label">
                 聲量
               </span>
-              <b-input v-model.number="volumeMin" class="newsFilter__input" type="number" />
+              <b-input v-model.number="volumeMin" class="newsFilter__input" type="number" autocomplete="off" />
               <span class="mx-1">
                 -
               </span>
-              <b-input v-model.number="volumeMax" class="newsFilter__input" type="number" />
+              <b-input v-model.number="volumeMax" class="newsFilter__input" type="number" autocomplete="off" />
             </div>
             <div class="newsFilter__power">
               <span class="newsFilter__power-label">
                 爆發力
               </span>
-              <b-input v-model.number="powerMin" class="newsFilter__input" type="number" />
+              <b-input v-model.number="powerMin" class="newsFilter__input" type="number" autocomplete="off" />
               <span class="mx-1">
                 -
               </span>
-              <b-input v-model.number="powerMax" class="newsFilter__input" type="number" />
+              <b-input v-model.number="powerMax" class="newsFilter__input" type="number" autocomplete="off" />
             </div>
             <div class="newsFilter__position">
               立場
@@ -98,21 +98,24 @@
           </div>
         </template>
         <template #cell(keywords)="{ item }">
-          <span v-for="keyword in item.keywords" :key="keyword" class="searchResultTable__keyword">
+          <span v-for="(keyword, index) in item.keywords" :key="keyword + index" class="searchResultTable__keyword">
             {{ keyword }}
           </span>
-          <span class="searchResultTable__title" @click.prevent="collapseText[item.id] = !collapseText[item.id]">
+          <b-button v-b-toggle="item.id" class="searchResultTable__title" variant="none">
             <v-clamp autoresize :max-lines="1">
               {{ item.title }}
             </v-clamp>
             <font-awesome-icon
+              v-if="collapseMounted"
               class="ml-2"
-              :icon="['fas'].concat(collapseText[item.id] ? ['angle-up'] : ['angle-down'])"
+              :icon="['fas'].concat($refs[`collapse-${item.id}-text`].show ? ['angle-up'] : ['angle-down'])"
             />
-          </span>
-          <v-clamp v-if="collapseText[item.id]" class="searchResultTable__text" autoresize :max-lines="3">
-            {{ item.text }}
-          </v-clamp>
+          </b-button>
+          <b-collapse :id="item.id" :ref="`collapse-${item.id}-text`" @hook:mounted="collapseMounted = true">
+            <v-clamp class="searchResultTable__text" autoresize :max-lines="3">
+              {{ item.text }}
+            </v-clamp>
+          </b-collapse>
         </template>
         <template #cell(position)="{ item }">
           <div class="d-flex align-items-baseline justify-content-center text-nowrap">
@@ -222,7 +225,7 @@ export default {
       page: 1,
       limit: 20,
       searchType: 'news',
-      collapseText: {}
+      collapseMounted: false
     }
   },
   computed: {
@@ -233,9 +236,6 @@ export default {
       }
       return 'getResultsWithHotNews'
     }
-  },
-  watch: {
-    results: 'setCollapseItemsState'
   },
   mounted () {
     this.getChannelItems()
@@ -288,12 +288,6 @@ export default {
     },
     keywordValidator (keyword) {
       return !keyword.includes(',')
-    },
-    setCollapseItemsState () {
-      this.collapseText = {};
-      (this.results || []).forEach((news) => {
-        this.$set(this.collapseText, news.id, false)
-      })
     }
   }
 }
@@ -397,7 +391,6 @@ export default {
       background-color: transparent;
       color: #2F80ED;
       text-decoration: underline;
-      cursor: pointer;
       display: flex;
       align-items: center;
       justify-content: space-between;
@@ -407,6 +400,7 @@ export default {
       color: black;
       margin-top: 6px;
       font-size: 14px;
+      max-height: 63px;
     }
   }
 
