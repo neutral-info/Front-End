@@ -106,9 +106,8 @@
               {{ item.title }}
             </v-clamp>
             <font-awesome-icon
-              v-if="collapseMounted"
               class="ml-2"
-              :icon="['fas'].concat($refs[`collapse-${item.id}-text`].show ? ['angle-up'] : ['angle-down'])"
+              :icon="['fas'].concat(collapseMounted && $refs[`collapse-${item.id}-text`].show ? ['angle-up'] : ['angle-down'])"
             />
           </b-button>
           <b-collapse :id="item.id" :ref="`collapse-${item.id}-text`" @hook:mounted="collapseMounted = true">
@@ -283,6 +282,7 @@ export default {
       if (searchType) {
         this.searchType = searchType
       }
+      this.collapseMounted = false
       await this.$nextTick()
       this[this.currentListAPI]()
     },
