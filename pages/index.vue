@@ -24,7 +24,7 @@
         <b-popover
           v-if="$refs.filterBtn && results"
           :target="$refs.filterBtn"
-          triggers="hover click"
+          triggers="click"
           placement="leftbottom"
           custom-class="newsFilter">
           <template v-slot:title>
