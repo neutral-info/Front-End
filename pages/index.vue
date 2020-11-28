@@ -17,7 +17,7 @@
           invalid-tag-text="請移除無效字元"
           :tag-validator="keywordValidator"
           remove-on-delete
-          @input="getResults({ searchType: 'news'})"
+          @input="getResults({ searchType: 'news', resetPager: true })"
         >
           <template #add-button-text>
             <svg-icon name="IconSearch" :width="16" :height="16" />
@@ -33,7 +33,7 @@
           <template v-slot:title>
             篩選
           </template>
-          <b-form class="newsFilter__form" @submit.prevent="getResults({ searchType: 'news'})">
+          <b-form class="newsFilter__form" @submit.prevent="getResults({ searchType: 'news', resetPager: true })">
             <div class="newsFilter__volume">
               <span class="newsFilter__volume-label">
                 聲量
@@ -89,7 +89,7 @@
         :sort-desc.sync="orderDesc"
         :sort-by.sync="orderby"
         table-class="searchResultTable"
-        @sort-changed="getResults"
+        @sort-changed="getResults({ resetPager: true })"
       >
         <template #table-busy>
           <div class="text-center text-dark my-5">
@@ -138,7 +138,7 @@
             button
             class="searchResultTable__author"
             button-variant="none"
-            @change="getResults"
+            @change="getResults({ resetPager: true })"
           >
             {{ item.author.desc }}
           </b-form-checkbox>
@@ -308,9 +308,12 @@ export default {
         this.total = !data.error ? data.totalNews : 0
       })
     },
-    async getResults ({ searchType }) {
+    async getResults ({ searchType, resetPager }) {
       if (searchType) {
         this.searchType = searchType
+      }
+      if (resetPager) {
+        this.page = 1
       }
       this.collapseMounted = false
       await this.$nextTick()
