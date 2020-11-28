@@ -1,7 +1,7 @@
 export const actions = {
   getItemsByType ({ commit }, option) {
     // option = {
-    //   itemtype:   <String>, Available values : Position, Channel
+    //   itemtype:   <String>, Available values : Position, Channel, Producer
     // }
 
     const { itemtype } = option

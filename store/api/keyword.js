@@ -3,15 +3,17 @@ export const actions = {
     // option = {
     //   orderby:   <String>, Available values : pubdate, volume_now
     //   ordertype: <String>, Available values : DESC, ASC
-    //   pageNo:    <Number>,
-    //   pageSize:  <Number>,
-    //   keywords:  <String>,
     //   volumeMin: <Number>,
     //   volumeMax: <Number>,
     //   powerMin:  <Number>,
     //   powerMax:  <Number>,
     //   positions: <String>,
+    //   author:    <String>,
     //   channel:   <String>,
+    //   producer:  <String>,
+    //   keywords:  <String>,
+    //   pageNo:    <Number>,
+    //   pageSize:  <Number>,
     // }
 
     const {
@@ -25,7 +27,9 @@ export const actions = {
       powerMin,
       powerMax,
       positions,
-      channel
+      channel,
+      author,
+      producer
     } = option
 
     const queryOption = {
@@ -62,6 +66,14 @@ export const actions = {
 
     if (!_.isNil(channel)) {
       queryOption.channel = channel
+    }
+
+    if (!_.isNil(author)) {
+      queryOption.author = author
+    }
+
+    if (!_.isNil(producer)) {
+      queryOption.producer = producer
     }
 
     const queryString = this.$helper.api.getQueryStringByOptions(queryOption)

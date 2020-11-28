@@ -59,8 +59,12 @@
               <b-checkbox-group v-model="positions" :options="positionOption" buttons />
             </div>
             <div class="newsFilter__channel">
-              管道
+              管道類別
               <b-checkbox-group v-model="channels" :options="channelOption" buttons />
+            </div>
+            <div class="newsFilter__producer">
+              發佈管道
+              <b-checkbox-group v-model="producers" :options="producerOption" buttons />
             </div>
             <b-button type="submit" class="newsFilter__send-btn">
               送出
@@ -126,6 +130,19 @@
             <svg-icon name="IconPosition" :width="16" :height="13" />
           </div>
         </template>
+        <template #cell(author.desc)="{ item }">
+          <b-form-checkbox
+            v-model="author"
+            :value="item.author.desc"
+            unchecked-value=""
+            button
+            class="searchResultTable__author"
+            button-variant="none"
+            @change="getResults"
+          >
+            {{ item.author.desc }}
+          </b-form-checkbox>
+        </template>
         <template #cell(pubdate)="{ item }">
           {{ $dayjs(item.pubdate).format('YYYY/MM/DD') }}
         </template>
@@ -153,6 +170,7 @@ export default {
       results: null,
       positionOption: null,
       channelOption: null,
+      producerOption: null,
       fields: [
         {
           key: 'keywords',
@@ -188,16 +206,16 @@ export default {
           tdClass: ['align-middle', 'py-2']
         },
         {
-          key: 'channels',
-          label: '發布管道',
+          key: 'producer.desc',
+          label: '發佈管道',
           sortable: false,
           class: ['text-center', 'searchResultTable__border'],
           thClass: ['text-nowrap', 'font-weight-normal', 'py-0'],
           tdClass: ['align-middle', 'py-2']
         },
         {
-          key: 'producer.desc',
-          label: '發布者',
+          key: 'author.desc',
+          label: '發佈者',
           sortable: false,
           class: ['text-center', 'searchResultTable__border'],
           thClass: ['text-nowrap', 'font-weight-normal', 'py-0'],
@@ -219,6 +237,8 @@ export default {
       powerMax: '',
       positions: [],
       channels: [],
+      producers: [],
+      author: '',
       orderby: 'pubdate',
       orderDesc: true,
       page: 1,
@@ -239,6 +259,7 @@ export default {
   mounted () {
     this.getChannelItems()
     this.getPostionItems()
+    this.getProducerItems()
     this[this.currentListAPI]()
   },
   methods: {
@@ -258,6 +279,13 @@ export default {
         this.positionOption = !data.error ? data : []
       })
     },
+    getProducerItems () {
+      this.getItemsByType({
+        itemtype: 'Producer'
+      }).then((data) => {
+        this.producerOption = !data.error ? data : []
+      })
+    },
     getResultsWithNews () {
       this.results = null
       const option = {
@@ -271,7 +299,9 @@ export default {
         volumeMin: _.isNumber(this.volumeMin) ? this.volumeMin : null,
         volumeMax: _.isNumber(this.volumeMax) ? this.volumeMax : null,
         powerMin: _.isNumber(this.powerMin) ? this.powerMin : null,
-        powerMax: _.isNumber(this.powerMax) ? this.powerMax : null
+        powerMax: _.isNumber(this.powerMax) ? this.powerMax : null,
+        producer: this.producers.join(',') || null,
+        author: this.author || null
       }
       this.getNews(option).then((data) => {
         this.results = !data.error ? data.News : []
@@ -402,6 +432,20 @@ export default {
       font-size: 14px;
       max-height: 63px;
     }
+
+    &__author {
+      ::v-deep  {
+        label {
+          padding: 0;
+          border: none;
+
+          &.active {
+            color: #2F80ED;
+            text-decoration: underline;
+          }
+        }
+      }
+    }
   }
 
   .newsFilter {
@@ -466,7 +510,8 @@ export default {
     }
 
     &__position,
-    &__channel {
+    &__channel,
+    &__producer {
       border-bottom: 1px solid #BCD5F5;
       padding: 6px 9px;
 
