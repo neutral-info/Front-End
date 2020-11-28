@@ -4,8 +4,7 @@
       <div
         :class="{
           'invisible': searchType === 'news'
-        }"
-      >
+        }">
         Hot
       </div>
       <div class="d-flex align-items-center">
@@ -17,8 +16,7 @@
           invalid-tag-text="請移除無效字元"
           :tag-validator="keywordValidator"
           remove-on-delete
-          @input="getResults({ searchType: 'news', resetPager: true })"
-        >
+          @input="getResults({ searchType: 'news', resetPager: true })">
           <template #add-button-text>
             <svg-icon name="IconSearch" :width="16" :height="16" />
           </template>
@@ -28,8 +26,7 @@
           :target="$refs.filterBtn"
           triggers="hover click"
           placement="leftbottom"
-          custom-class="newsFilter"
-        >
+          custom-class="newsFilter">
           <template v-slot:title>
             篩選
           </template>
@@ -89,8 +86,7 @@
         :sort-desc.sync="orderDesc"
         :sort-by.sync="orderby"
         table-class="searchResultTable"
-        @sort-changed="getResults({ resetPager: true })"
-      >
+        @sort-changed="getResults({ resetPager: true })">
         <template #table-busy>
           <div class="text-center text-dark my-5">
             <b-spinner />
@@ -111,8 +107,7 @@
             </v-clamp>
             <font-awesome-icon
               class="ml-2"
-              :icon="['fas'].concat(collapseMounted && $refs[`collapse-${item.id}-text`].show ? ['angle-up'] : ['angle-down'])"
-            />
+              :icon="['fas'].concat(collapseMounted && $refs[`collapse-${item.id}-text`].show ? ['angle-up'] : ['angle-down'])" />
           </b-button>
           <b-collapse :id="item.id" :ref="`collapse-${item.id}-text`" @hook:mounted="collapseMounted = true">
             <v-clamp class="searchResultTable__text" autoresize :max-lines="3">
@@ -138,8 +133,7 @@
             button
             class="searchResultTable__author"
             button-variant="none"
-            @change="getResults({ resetPager: true })"
-          >
+            @change="getResults({ resetPager: true })">
             {{ item.author.desc }}
           </b-form-checkbox>
         </template>
@@ -155,8 +149,7 @@
       :limit="7"
       :total-rows="total"
       :per-page="limit"
-      @input="getResults"
-    />
+      @input="getResults" />
   </b-container>
 </template>
 
@@ -179,7 +172,7 @@ export default {
           class: ['searchResultTable__border', 'searchResultTable__keywords'],
           thClass: ['text-nowrap', 'font-weight-normal', 'py-0'],
           tdClass: ['align-middle', 'py-2'],
-          stickyColumn: true
+          stickyColumn: true,
         },
         {
           key: 'position',
@@ -187,7 +180,7 @@ export default {
           sortable: false,
           class: ['text-center', 'searchResultTable__border'],
           thClass: ['text-nowrap', 'font-weight-normal', 'py-0'],
-          tdClass: ['align-middle', 'py-2']
+          tdClass: ['align-middle', 'py-2'],
         },
         {
           key: 'volume_now',
@@ -195,7 +188,7 @@ export default {
           sortable: true,
           class: ['text-center', 'searchResultTable__border'],
           thClass: ['text-nowrap', 'font-weight-normal', 'py-0'],
-          tdClass: ['align-middle', 'py-2']
+          tdClass: ['align-middle', 'py-2'],
         },
         {
           key: 'power',
@@ -203,7 +196,7 @@ export default {
           sortable: false,
           class: ['text-center', 'searchResultTable__border'],
           thClass: ['text-nowrap', 'font-weight-normal', 'py-0'],
-          tdClass: ['align-middle', 'py-2']
+          tdClass: ['align-middle', 'py-2'],
         },
         {
           key: 'producer.desc',
@@ -211,7 +204,7 @@ export default {
           sortable: false,
           class: ['text-center', 'searchResultTable__border'],
           thClass: ['text-nowrap', 'font-weight-normal', 'py-0'],
-          tdClass: ['align-middle', 'py-2']
+          tdClass: ['align-middle', 'py-2'],
         },
         {
           key: 'author.desc',
@@ -219,7 +212,7 @@ export default {
           sortable: false,
           class: ['text-center', 'searchResultTable__border'],
           thClass: ['text-nowrap', 'font-weight-normal', 'py-0'],
-          tdClass: ['align-middle', 'py-2']
+          tdClass: ['align-middle', 'py-2'],
         },
         {
           key: 'pubdate',
@@ -227,8 +220,8 @@ export default {
           sortable: true,
           class: ['text-center', 'searchResultTable__border'],
           thClass: ['text-nowrap', 'font-weight-normal', 'py-0'],
-          tdClass: ['align-middle', 'py-2']
-        }
+          tdClass: ['align-middle', 'py-2'],
+        },
       ],
       keywords: [],
       volumeMin: '',
@@ -244,7 +237,7 @@ export default {
       page: 1,
       limit: 20,
       searchType: 'news',
-      collapseMounted: false
+      collapseMounted: false,
     }
   },
   computed: {
@@ -254,7 +247,7 @@ export default {
           return 'getResultsWithNews'
       }
       return 'getResultsWithHotNews'
-    }
+    },
   },
   mounted () {
     this.getChannelItems()
@@ -267,21 +260,21 @@ export default {
     ...mapActions('api/item', ['getItemsByType']),
     getChannelItems () {
       this.getItemsByType({
-        itemtype: 'Channel'
+        itemtype: 'Channel',
       }).then((data) => {
         this.channelOption = !data.error ? data : []
       })
     },
     getPostionItems () {
       this.getItemsByType({
-        itemtype: 'Position'
+        itemtype: 'Position',
       }).then((data) => {
         this.positionOption = !data.error ? data : []
       })
     },
     getProducerItems () {
       this.getItemsByType({
-        itemtype: 'Producer'
+        itemtype: 'Producer',
       }).then((data) => {
         this.producerOption = !data.error ? data : []
       })
@@ -301,7 +294,7 @@ export default {
         powerMin: _.isNumber(this.powerMin) ? this.powerMin : null,
         powerMax: _.isNumber(this.powerMax) ? this.powerMax : null,
         producer: this.producers.join(',') || null,
-        author: this.author || null
+        author: this.author || null,
       }
       this.getNews(option).then((data) => {
         this.results = !data.error ? data.News : []
@@ -321,8 +314,8 @@ export default {
     },
     keywordValidator (keyword) {
       return !keyword.includes(',')
-    }
-  }
+    },
+  },
 }
 </script>
 

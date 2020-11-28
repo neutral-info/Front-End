@@ -7,7 +7,7 @@ export const actions = {
     const { itemtype } = option
 
     const queryOption = {
-      itemtype: itemtype || 'Position'
+      itemtype: itemtype || 'Position',
     }
 
     const queryString = this.$helper.api.getQueryStringByOptions(queryOption)
@@ -15,5 +15,5 @@ export const actions = {
     return this.$axios.get(`${process.env.API_URL}/api/${process.env.API_VERSION}/item${queryString}`)
       .then(this.$helper.api.handleSuccess)
       .catch(this.$helper.api.handleError)
-  }
+  },
 }

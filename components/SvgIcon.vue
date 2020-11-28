@@ -15,21 +15,21 @@ export default {
     IconFilter,
     IconHot,
     IconSearch,
-    IconPosition
+    IconPosition,
   },
   props: {
     name: {
       type: String,
-      required: true
+      required: true,
     },
     width: {
       type: Number,
-      required: true
+      required: true,
     },
     height: {
       type: Number,
-      required: true
-    }
-  }
+      required: true,
+    },
+  },
 }
 </script>

@@ -29,7 +29,7 @@ export const actions = {
       positions,
       channel,
       author,
-      producer
+      producer,
     } = option
 
     const queryOption = {
@@ -37,7 +37,7 @@ export const actions = {
       orderby: orderby || 'pubdate',
       ordertype: ordertype || 'DESC',
       pageNo: pageNo || 1,
-      pageSize: pageSize || 5
+      pageSize: pageSize || 5,
     }
 
     if (!_.isNil(keywords)) {
@@ -81,5 +81,5 @@ export const actions = {
     return this.$axios.get(`${process.env.API_URL}/api/${process.env.API_VERSION}/keyword${queryString}`)
       .then(this.$helper.api.handleSuccess)
       .catch(this.$helper.api.handleError)
-  }
+  },
 }
