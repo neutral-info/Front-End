@@ -27,7 +27,7 @@
           triggers="click"
           placement="leftbottom"
           custom-class="newsFilter">
-          <template v-slot:title>
+          <template #title>
             篩選
           </template>
           <b-form class="newsFilter__form" @submit.prevent="getResults({ searchType: 'news', resetPager: true })">

@@ -18,6 +18,9 @@ module.exports = {
       multiline: 'never',
     }],
     'comma-dangle': ['error', 'always-multiline'],
+    'vue/valid-v-slot': ['error', {
+      allowModifiers: true,
+    }],
   },
   globals: {
     _: true,

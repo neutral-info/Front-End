@@ -2,7 +2,6 @@ import webpack from 'webpack'
 const { npm_package_name: title, npm_package_description: description, npm_package_version: version } = process.env
 
 export default {
-  mode: 'universal',
   /*
   ** Headers of the page
   */
@@ -11,11 +10,11 @@ export default {
     meta: [
       { charset: 'utf-8' },
       { name: 'viewport', content: 'width=device-width, initial-scale=1' },
-      { hid: 'description', name: 'description', content: description || '' }
+      { hid: 'description', name: 'description', content: description || '' },
     ],
     link: [
-      { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' }
-    ]
+      { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' },
+    ],
   },
   /*
   ** Customize the progress-bar color
@@ -31,22 +30,22 @@ export default {
   */
   plugins: [
     {
-      src: '~/plugins/helper'
+      src: '~/plugins/helper',
     },
     {
-      src: '~/plugins/vue-lodash'
+      src: '~/plugins/vue-lodash',
     },
     {
       src: '~/plugins/vue-json-viewer',
-      mode: 'client'
+      mode: 'client',
     },
     {
       src: '~/plugins/vue-clamp',
-      mode: 'client'
+      mode: 'client',
     },
     {
-      src: '~/plugins/vue-perfect-scrollbar'
-    }
+      src: '~/plugins/vue-perfect-scrollbar',
+    },
   ],
   /*
   ** Nuxt.js dev-modules
@@ -58,7 +57,7 @@ export default {
     '@nuxtjs/stylelint-module',
     '@nuxtjs/dayjs',
     '@nuxtjs/fontawesome',
-    '@nuxtjs/svg'
+    '@nuxtjs/svg',
   ],
   /*
   ** Nuxt.js modules
@@ -72,7 +71,7 @@ export default {
     // Doc: https://github.com/nuxt-community/dotenv-module
     '@nuxtjs/dotenv',
     '@nuxtjs/sentry',
-    '@nuxtjs/style-resources'
+    '@nuxtjs/style-resources',
   ],
   /*
   ** Axios module configuration
@@ -81,30 +80,30 @@ export default {
   axios: {
   },
   sentry: {
-    dsn: 'https://3589ac1a901244449ceb1d323fcba7c7@o427785.ingest.sentry.io/5401003'
+    dsn: 'https://3589ac1a901244449ceb1d323fcba7c7@o427785.ingest.sentry.io/5401003',
   },
   dayjs: {
     defaultLocale: 'zh-tw',
-    locales: ['zh-tw']
+    locales: ['zh-tw'],
   },
   fontawesome: {
     icons: {
-      solid: true
-    }
+      solid: true,
+    },
   },
   stylelint: {
-    fix: true
+    fix: true,
   },
   eslint: {
-    fix: true
+    fix: true,
   },
   styleResources: {
     scss: [
       'bootstrap/scss/_functions.scss',
       'bootstrap/scss/_variables.scss',
       'bootstrap/scss/_mixins.scss',
-      'bootstrap-vue/src/_variables.scss'
-    ]
+      'bootstrap-vue/src/_variables.scss',
+    ],
   },
   /*
   ** Build configuration
@@ -119,25 +118,25 @@ export default {
       css: ({ isDev }) => (isDev ? `[name].v${version}.js` : `[contenthash].v${version}.css`),
       img: ({ isDev }) => (isDev ? `[path][name].v${version}.[ext]` : `img/[hash:7].v${version}.[ext]`),
       font: ({ isDev }) => (isDev ? `[path][name].v${version}.[ext]` : `fonts/[hash:7].v${version}.[ext]`),
-      video: ({ isDev }) => (isDev ? `[path][name].v${version}.[ext]` : `videos/[hash:7].v${version}.[ext]`)
+      video: ({ isDev }) => (isDev ? `[path][name].v${version}.[ext]` : `videos/[hash:7].v${version}.[ext]`),
     },
     plugins: [
       new webpack.ProvidePlugin({
-        _: 'lodash'
-      })
+        _: 'lodash',
+      }),
     ],
     transpile: ['vue-clamp', 'resize-detector'],
     /*
     ** You can extend webpack config here
     */
     extend (config, ctx) {
-    }
+    },
   },
   env: {
     API_URL: process.env.API_URL,
-    API_VERSION: process.env.API_VERSION
+    API_VERSION: process.env.API_VERSION,
   },
   components: true,
   modern: true,
-  telemetry: true
+  telemetry: true,
 }
