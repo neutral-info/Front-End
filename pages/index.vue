@@ -455,6 +455,10 @@ export default {
             color: #2F80ED;
             text-decoration: underline;
           }
+
+          &:hover {
+            text-decoration: underline;
+          }
         }
       }
     }
