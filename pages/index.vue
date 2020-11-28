@@ -98,9 +98,13 @@
           </div>
         </template>
         <template #cell(keywords)="{ item }">
-          <span v-for="(keyword, index) in item.keywords" :key="keyword + index" class="searchResultTable__keyword">
-            {{ keyword }}
-          </span>
+          <b-checkbox-group
+            v-model="keywords"
+            :options="item.keywords"
+            buttons
+            class="searchResultTable__keyword"
+            button-variant="none"
+            @change="getResults({ resetPager: true })" />
           <b-button v-b-toggle="item.id" class="searchResultTable__title" variant="none">
             <v-clamp autoresize :max-lines="1">
               {{ item.title }}
@@ -401,13 +405,25 @@ export default {
       }
     }
 
-    &__keyword {
-      color: #070915;
-      background: #2F80ED;
-      border-radius: 5px;
-      padding: 0 3px;
-      margin: 0 5px 5px 0;
-      display: inline-block;
+    &__keyword.btn-group {
+      ::v-deep {
+        label.btn {
+          color: #070915;
+          background: #2F80ED;
+          border-radius: 5px;
+          padding: 0 3px;
+          margin: 0 5px 5px 0;
+          display: inline-block;
+
+          &:hover {
+            opacity: .8;
+          }
+
+          &.active {
+            color: white;
+          }
+        }
+      }
     }
 
     &__title {
