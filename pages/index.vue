@@ -131,7 +131,7 @@
         </template>
         <template #cell(author.desc)="{ item }">
           <b-form-checkbox
-            v-model="author"
+            v-model="authors"
             :value="item.author.desc"
             unchecked-value=""
             button
@@ -235,7 +235,7 @@ export default {
       positions: [],
       channels: [],
       producers: [],
-      author: '',
+      authors: [],
       orderby: 'pubdate',
       orderDesc: true,
       page: 1,
@@ -292,13 +292,13 @@ export default {
         orderby: this.orderby,
         ordertype: this.orderDesc ? 'DESC' : 'ASC',
         positions: this.positions.join(',') || null,
-        channel: this.channels.join(',') || null,
+        channels: this.channels.join(',') || null,
         volumeMin: _.isNumber(this.volumeMin) ? this.volumeMin : null,
         volumeMax: _.isNumber(this.volumeMax) ? this.volumeMax : null,
         powerMin: _.isNumber(this.powerMin) ? this.powerMin : null,
         powerMax: _.isNumber(this.powerMax) ? this.powerMax : null,
-        producer: this.producers.join(',') || null,
-        author: this.author || null,
+        producers: this.producers.join(',') || null,
+        authors: this.authors.join(',') || null,
       }
       this.getNews(option).then((data) => {
         this.results = !data.error ? data.News : []

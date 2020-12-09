@@ -8,9 +8,9 @@ export const actions = {
     //   powerMin:  <Number>,
     //   powerMax:  <Number>,
     //   positions: <String>,
-    //   author:    <String>,
-    //   channel:   <String>,
-    //   producer:  <String>,
+    //   authors:    <String>,
+    //   channels:   <String>,
+    //   producers:  <String>,
     //   keywords:  <String>,
     //   pageNo:    <Number>,
     //   pageSize:  <Number>,
@@ -27,9 +27,9 @@ export const actions = {
       powerMin,
       powerMax,
       positions,
-      channel,
-      author,
-      producer,
+      channels,
+      authors,
+      producers,
     } = option
 
     const queryOption = {
@@ -64,16 +64,16 @@ export const actions = {
       queryOption.positions = positions
     }
 
-    if (!_.isNil(channel)) {
-      queryOption.channel = channel
+    if (!_.isNil(channels)) {
+      queryOption.channels = channels
     }
 
-    if (!_.isNil(author)) {
-      queryOption.author = author
+    if (!_.isNil(authors)) {
+      queryOption.authors = authors
     }
 
-    if (!_.isNil(producer)) {
-      queryOption.producer = producer
+    if (!_.isNil(producers)) {
+      queryOption.producers = producers
     }
 
     const queryString = this.$helper.api.getQueryStringByOptions(queryOption)
