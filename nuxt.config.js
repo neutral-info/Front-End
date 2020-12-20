@@ -55,7 +55,6 @@ export default {
     '@nuxtjs/eslint-module',
     // Doc: https://github.com/nuxt-community/stylelint-module
     '@nuxtjs/stylelint-module',
-    '@nuxtjs/dayjs',
     '@nuxtjs/fontawesome',
     '@nuxtjs/svg',
   ],
@@ -72,6 +71,7 @@ export default {
     '@nuxtjs/dotenv',
     '@nuxtjs/sentry',
     '@nuxtjs/style-resources',
+    '@nuxtjs/dayjs',
   ],
   /*
   ** Axios module configuration
@@ -83,8 +83,12 @@ export default {
     dsn: 'https://3589ac1a901244449ceb1d323fcba7c7@o427785.ingest.sentry.io/5401003',
   },
   dayjs: {
-    defaultLocale: 'zh-tw',
-    locales: ['zh-tw'],
+    locales: ['en'],
+    defaultLocale: 'en',
+    plugins: [
+      'utc', // import 'dayjs/plugin/utc'
+      'timezone', // import 'dayjs/plugin/timezone'
+    ],
   },
   fontawesome: {
     icons: {
