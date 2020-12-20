@@ -83,8 +83,8 @@ export default {
     dsn: 'https://3589ac1a901244449ceb1d323fcba7c7@o427785.ingest.sentry.io/5401003',
   },
   dayjs: {
-    locales: ['en'],
-    defaultLocale: 'en',
+    locales: ['zh-tw'],
+    defaultLocale: 'zh-tw',
     plugins: [
       'utc', // import 'dayjs/plugin/utc'
       'timezone', // import 'dayjs/plugin/timezone'
