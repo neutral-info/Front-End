@@ -142,7 +142,7 @@
           </b-form-checkbox>
         </template>
         <template #cell(pubdate)="{ item }">
-          {{ $dayjs(item.pubdate).tz('Asia/Taipei').format('YYYY/MM/DD') }}
+          {{ $dayjs(item.pubdate).format('YYYY/MM/DD') }}
         </template>
       </b-table>
     </perfect-scrollbar>

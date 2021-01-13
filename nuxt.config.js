@@ -85,6 +85,7 @@ export default {
   dayjs: {
     locales: ['zh-tw'],
     defaultLocale: 'zh-tw',
+    defaultTimeZone: 'Asia/Taipei',
     plugins: [
       'utc', // import 'dayjs/plugin/utc'
       'timezone', // import 'dayjs/plugin/timezone'
