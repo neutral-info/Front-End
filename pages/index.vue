@@ -195,9 +195,9 @@ export default {
           tdClass: ['align-middle', 'py-2'],
         },
         {
-          key: 'power',
+          key: 'power_now',
           label: '爆發力',
-          sortable: false,
+          sortable: true,
           class: ['text-center', 'searchResultTable__border'],
           thClass: ['text-nowrap', 'font-weight-normal', 'py-0'],
           tdClass: ['align-middle', 'py-2'],
@@ -373,6 +373,10 @@ export default {
               box-shadow: none;
             }
           }
+
+          .b-from-tags-field {
+            margin: 0;
+          }
         }
       }
     }
@@ -406,6 +410,8 @@ export default {
     }
 
     &__keyword.btn-group {
+      flex-wrap: wrap;
+
       ::v-deep {
         label.btn {
           color: #070915;
@@ -414,6 +420,7 @@ export default {
           padding: 0 3px;
           margin: 0 5px 5px 0;
           display: inline-block;
+          flex-grow: unset;
 
           &:hover {
             opacity: .8;
