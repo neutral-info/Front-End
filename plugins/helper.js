@@ -14,8 +14,8 @@ export default (ctx, inject) => {
         return `?${Object.keys(options)
           .map(key => `${key}=${options[key]}`)
           .join('&')}`
-      }
-    }
+      },
+    },
   }
   ctx.$helper = helper
   inject('helper', helper)
