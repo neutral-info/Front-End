@@ -113,10 +113,13 @@
               class="ml-2"
               :icon="['fas'].concat(collapseMounted && $refs[`collapse-${item.id}-text`].show ? ['angle-up'] : ['angle-down'])" />
           </b-button>
-          <b-collapse :id="item.id" :ref="`collapse-${item.id}-text`" @hook:mounted="collapseMounted = true">
+          <b-collapse :id="item.id" :ref="`collapse-${item.id}-text`" class="text-right" @hook:mounted="collapseMounted = true">
             <v-clamp class="searchResultTable__text" autoresize :max-lines="3">
               {{ item.text }}
             </v-clamp>
+            <b-link :href="item.url" target="_blank" class="searchResultTable__url">
+              原文連結
+            </b-link>
           </b-collapse>
         </template>
         <template #cell(position)="{ item }">
@@ -450,6 +453,11 @@ export default {
       margin-top: 6px;
       font-size: 14px;
       max-height: 63px;
+    }
+
+    &__url {
+      font-size: 14px;
+      text-decoration: underline;
     }
 
     &__author {
