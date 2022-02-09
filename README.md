@@ -15,3 +15,10 @@ $ npm run dev
 $ npm run build
 $ npm run start
 ```
+
+## Config
+
+copy .env_example and rename it to .env
+
+
+For detailed explanation on how things work, check out [Nuxt.js docs](https://nuxtjs.org).
